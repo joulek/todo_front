@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@500&display=swap');
+
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  width: 220px;
+  background: linear-gradient(to bottom, #ffe0ec, #c8b6ff);
+  padding: 20px 15px;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Fredoka', sans-serif;
+  box-shadow: 3px 0 10px rgba(0,0,0,0.05);
+  z-index: 100;
+}
+
+.sidebar-header {
+  font-size: 22px;
+  font-weight: bold;
+  color: #ff69b4;
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: center;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border-radius: 15px;
+  color: #555;
+  text-decoration: none;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  background-color: rgba(255, 255, 255, 0.6);
+}
+
+.sidebar-link:hover,
+.sidebar-link.active {
+  background-color: #ffd5f5;
+  color: #ff1493;
+  box-shadow: 0 2px 8px rgba(255, 105, 180, 0.2);
+}
+
+
+.logoNavbar {
+  width: 80px; /* Réduisez la taille pour un meilleur équilibre */
+  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.1));
+  margin-left: -30px
+}
