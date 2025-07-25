@@ -58,15 +58,7 @@ export default function Login() {
 
         <div className="remember-forgot">
           <div className="remember-me">
-            <input
-              type="checkbox"
-              id="remember"
-              checked={rememberMe}
-              onChange={(e) => setRememberMe(e.target.checked)}
-            />
-            <label htmlFor="remember">Se souvenir de moi</label>
           </div>
-          <a href="/forgot-password" className="forgot-password">Mot de passe oublié ?</a>
         </div>
 
         <button type="submit" className="login-button">Connexion</button>
