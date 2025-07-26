@@ -1,4 +1,3 @@
-// login.jsx
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import API from '../services/api';
@@ -6,12 +5,10 @@ import './login.css';
 import logo from "../assets/logo_to_do_sans_bg.png";
 import { Link } from 'react-router-dom';
 
-
 export default function Login() {
   const [form, setForm] = useState({ email: '', password: '' });
   const [rememberMe, setRememberMe] = useState(false);
   const navigate = useNavigate();
-
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -29,7 +26,6 @@ export default function Login() {
 
   return (
     <div className="login-container">
-
       <form className="login-form" onSubmit={handleLogin}>
         <img src={logo} alt="Logo" className="logo" />
         <h1 className="login-title">Bienvenue de nouveau !</h1>
@@ -56,10 +52,7 @@ export default function Login() {
           <label>Mot de passe</label>
         </div>
 
-        <div className="remember-forgot">
-          <div className="remember-me">
-          </div>
-        </div>
+  
 
         <button type="submit" className="login-button">Connexion</button>
         <div className="signup-link">

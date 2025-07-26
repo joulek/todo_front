@@ -18,7 +18,6 @@ export default function Register() {
     try {
       await API.post('/auth/register', form);
       setSuccessMessage("🎉 Compte créé avec succès !");
-      // Optionnel : rediriger après 2 secondes
       setTimeout(() => navigate('/login'), 2000);
     } catch (err) {
       setErrorMessage("❌ Une erreur est survenue lors de l'inscription.");
@@ -33,11 +32,8 @@ export default function Register() {
         <img src={logo} alt="Logo" className="logo" />
         <h1 className="login-title">Créer un compte</h1>
 
-        {/* Message de succès */}
-        {successMessage && <p style={{ color: 'green', marginBottom: '10px' }}>{successMessage}</p>}
-
-        {/* Message d'erreur */}
-        {errorMessage && <p style={{ color: 'red', marginBottom: '10px' }}>{errorMessage}</p>}
+        {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
+        {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
 
         <div className="input-group">
           <input
@@ -46,16 +42,6 @@ export default function Register() {
             value={form.name}
             onChange={e => setForm({ ...form, name: e.target.value })}
             required
-            style={{
-              width: '90%',
-              padding: '15px 20px',
-              border: '2px solid #ffb6c1',
-              borderRadius: '30px',
-              fontSize: '16px',
-              backgroundColor: '#fff0f6',
-              fontFamily: "'Comic Neue', cursive",
-              transition: 'all 0.3s ease'
-            }}
           />
           <label>Nom</label>
         </div>

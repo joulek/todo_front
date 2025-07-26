@@ -77,8 +77,7 @@ export default function ToDoList() {
   };
 
   return (
-<div style={{ backgroundColor: "#fff5fb", height: "100vh", padding: "20px", marginTop: "-20px", marginRight: "-20px" }}>
-
+    <div className="todo-container">
       <h2>Ma To-Do List</h2>
       <button className="add-button" onClick={() => setShowAddPopup(true)}>
         <MdAddCircle size={20} /> Ajouter une tâche
@@ -98,13 +97,13 @@ export default function ToDoList() {
             <div className="todo-actions">
               <button onClick={() => toggleCompleted(todo)}>
                 {todo.completed ? (
-                  <MdCancel size={20}  />
+                  <MdCancel size={20} />
                 ) : (
-                  <MdCheckCircle size={20}  />
+                  <MdCheckCircle size={20} />
                 )}
               </button>
               <button onClick={() => startEdit(todo)}>
-                <MdEdit size={20}  />
+                <MdEdit size={20} />
               </button>
               <button
                 onClick={() => {
@@ -112,7 +111,7 @@ export default function ToDoList() {
                   setShowDeletePopup(true);
                 }}
               >
-                <MdDelete size={20}  />
+                <MdDelete size={20} />
               </button>
             </div>
           </li>
@@ -129,13 +128,14 @@ export default function ToDoList() {
               placeholder="Titre de la tâche"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
+              onKeyPress={(e) => e.key === 'Enter' && addTodo()}
             />
             <div className="popup-actions">
               <button onClick={addTodo}>
-                Enregistrer
+                <MdSave /> Enregistrer
               </button>
               <button onClick={() => setShowAddPopup(false)}>
-                 Annuler
+                <MdCancel /> Annuler
               </button>
             </div>
           </div>
@@ -151,13 +151,14 @@ export default function ToDoList() {
               type="text"
               value={editTitle}
               onChange={(e) => setEditTitle(e.target.value)}
+              onKeyPress={(e) => e.key === 'Enter' && saveEdit()}
             />
             <div className="popup-actions">
               <button onClick={saveEdit}>
-                 Sauvegarder
+                <MdSave /> Sauvegarder
               </button>
               <button onClick={() => setShowEditPopup(false)}>
-                Annuler
+                <MdCancel /> Annuler
               </button>
             </div>
           </div>
@@ -183,7 +184,7 @@ export default function ToDoList() {
                   }
                 }}
               >
-                Oui, supprimer
+                <MdDelete /> Oui, supprimer
               </button>
               <button
                 onClick={() => {
@@ -191,7 +192,7 @@ export default function ToDoList() {
                   setTodoToDelete(null);
                 }}
               >
-                Annuler
+                <MdCancel /> Annuler
               </button>
             </div>
           </div>
