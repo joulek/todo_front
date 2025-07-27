@@ -186,7 +186,7 @@ export default function ToDoList() {
                     }
                   }}
                 >
-                  <MdDelete /> Oui, supprimer
+                   Oui, supprimer
                 </button>
                 <button
                   onClick={() => {
@@ -194,7 +194,7 @@ export default function ToDoList() {
                     setTodoToDelete(null);
                   }}
                 >
-                  <MdCancel /> Annuler
+                   Annuler
                 </button>
               </div>
             </div>
