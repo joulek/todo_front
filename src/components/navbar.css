@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@500&display=swap');
 
+/* Style de base du sidebar */
 .sidebar {
   position: fixed;
   left: 0;
@@ -12,9 +13,11 @@
   flex-direction: column;
   font-family: 'Fredoka', sans-serif;
   box-shadow: 3px 0 10px rgba(0,0,0,0.05);
-  z-index: 100;
+  z-index: 1000;
+  transition: transform 0.3s ease;
 }
 
+/* Header du sidebar */
 .sidebar-header {
   font-size: 22px;
   font-weight: bold;
@@ -30,6 +33,7 @@
   gap: 10px;
 }
 
+/* Navigation */
 .sidebar-nav {
   display: flex;
   flex-direction: column;
@@ -56,9 +60,66 @@
   box-shadow: 0 2px 8px rgba(255, 105, 180, 0.2);
 }
 
-
+/* Logo */
 .logoNavbar {
-  width: 80px; /* Réduisez la taille pour un meilleur équilibre */
+  width: 80px;
   filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.1));
-  margin-left: -30px
+  margin-left: -30px;
+}
+
+/* Bouton toggle pour mobile */
+.menu-toggle {
+  display: none;
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  z-index: 1001;
+  background: linear-gradient(to right, #ff6ec4, #7873f5);
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Overlay pour fermer le sidebar */
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  display: none;
+}
+
+/* Styles responsifs */
+@media (max-width: 992px) {
+  .sidebar {
+    transform: translateX(-100%);
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .sidebar.open ~ .sidebar-overlay {
+    display: block;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+}
+
+@media (min-width: 993px) {
+  .sidebar {
+    transform: translateX(0) !important;
+  }
+
+  .menu-toggle {
+    display: none !important;
+  }
 }

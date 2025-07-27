@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import API from "../services/api";
 import "./todo.css";
+import Sidebar from "./navbar";
 import {
   MdEdit,
   MdDelete,
@@ -11,14 +12,13 @@ import {
 } from "react-icons/md";
 
 export default function ToDoList() {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [todos, setTodos] = useState([]);
   const [title, setTitle] = useState("");
   const [showAddPopup, setShowAddPopup] = useState(false);
-
   const [editId, setEditId] = useState(null);
   const [editTitle, setEditTitle] = useState("");
   const [showEditPopup, setShowEditPopup] = useState(false);
-
   const [showDeletePopup, setShowDeletePopup] = useState(false);
   const [todoToDelete, setTodoToDelete] = useState(null);
 
@@ -77,127 +77,136 @@ export default function ToDoList() {
   };
 
   return (
-    <div className="todo-container">
-      <h2>Ma To-Do List</h2>
-      <button className="add-button" onClick={() => setShowAddPopup(true)}>
-        <MdAddCircle size={20} /> Ajouter une tâche
-      </button>
+    <>
+      <Sidebar
+        isOpen={isSidebarOpen}
+        onToggle={() => setIsSidebarOpen(!isSidebarOpen)}
+      />
+      <div className="todo-container" style={{
+        marginLeft: isSidebarOpen && window.innerWidth > 992 ? '220px' : '0',
+        width: isSidebarOpen && window.innerWidth > 992 ? 'calc(100% - 220px)' : '100%'
+      }}>
+        <h2>Ma To-Do List</h2>
+        <button className="add-button" onClick={() => setShowAddPopup(true)}>
+          <MdAddCircle size={20} /> Ajouter une tâche
+        </button>
 
-      <ul className="todo-list">
-        {todos.map((todo) => (
-          <li key={todo._id} className="todo-item">
-            <span
-              style={{
-                textDecoration: todo.completed ? "line-through" : "none",
-                color: todo.completed ? "#aaa" : "#333",
-              }}
-            >
-              {todo.title}
-            </span>
-            <div className="todo-actions">
-              <button onClick={() => toggleCompleted(todo)}>
-                {todo.completed ? (
-                  <MdCancel size={20} />
-                ) : (
-                  <MdCheckCircle size={20} />
-                )}
-              </button>
-              <button onClick={() => startEdit(todo)}>
-                <MdEdit size={20} />
-              </button>
-              <button
-                onClick={() => {
-                  setTodoToDelete(todo);
-                  setShowDeletePopup(true);
+        <ul className="todo-list">
+          {todos.map((todo) => (
+            <li key={todo._id} className="todo-item">
+              <span
+                style={{
+                  textDecoration: todo.completed ? "line-through" : "none",
+                  color: todo.completed ? "#aaa" : "#333",
                 }}
               >
-                <MdDelete size={20} />
-              </button>
-            </div>
-          </li>
-        ))}
-      </ul>
+                {todo.title}
+              </span>
+              <div className="todo-actions">
+                <button onClick={() => toggleCompleted(todo)}>
+                  {todo.completed ? (
+                    <MdCancel size={20} />
+                  ) : (
+                    <MdCheckCircle size={20} />
+                  )}
+                </button>
+                <button onClick={() => startEdit(todo)}>
+                  <MdEdit size={20} />
+                </button>
+                <button
+                  onClick={() => {
+                    setTodoToDelete(todo);
+                    setShowDeletePopup(true);
+                  }}
+                >
+                  <MdDelete size={20} />
+                </button>
+              </div>
+            </li>
+          ))}
+        </ul>
 
-      {/* Popup ajout tâche */}
-      {showAddPopup && (
-        <div className="popup-overlay">
-          <div className="popup">
-            <h3>Ajouter une nouvelle tâche 🌟</h3>
-            <input
-              type="text"
-              placeholder="Titre de la tâche"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              onKeyPress={(e) => e.key === 'Enter' && addTodo()}
-            />
-            <div className="popup-actions">
-              <button onClick={addTodo}>
-                <MdSave /> Enregistrer
-              </button>
-              <button onClick={() => setShowAddPopup(false)}>
-                <MdCancel /> Annuler
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Popup édition tâche */}
-      {showEditPopup && (
-        <div className="popup-overlay">
-          <div className="popup">
-            <h3>Modifier la tâche ✨</h3>
-            <input
-              type="text"
-              value={editTitle}
-              onChange={(e) => setEditTitle(e.target.value)}
-              onKeyPress={(e) => e.key === 'Enter' && saveEdit()}
-            />
-            <div className="popup-actions">
-              <button onClick={saveEdit}>
-                <MdSave /> Sauvegarder
-              </button>
-              <button onClick={() => setShowEditPopup(false)}>
-                <MdCancel /> Annuler
-              </button>
+        {/* Popup ajout tâche */}
+        {showAddPopup && (
+          <div className="popup-overlay">
+            <div className="popup">
+              <h3>Ajouter une nouvelle tâche 🌟</h3>
+              <input
+                type="text"
+                placeholder="Titre de la tâche"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                onKeyPress={(e) => e.key === 'Enter' && addTodo()}
+              />
+              <div className="popup-actions">
+                <button onClick={addTodo}>
+                  <MdSave /> Enregistrer
+                </button>
+                <button onClick={() => setShowAddPopup(false)}>
+                  <MdCancel /> Annuler
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
 
-      {/* Popup suppression tâche */}
-      {showDeletePopup && (
-        <div className="popup-overlay">
-          <div className="popup">
-            <h3>Supprimer cette tâche ?</h3>
-            <p>« {todoToDelete?.title} » sera supprimée définitivement.</p>
-            <div className="popup-actions">
-              <button
-                onClick={async () => {
-                  try {
-                    await API.delete(`/todos/${todoToDelete._id}`);
+        {/* Popup édition tâche */}
+        {showEditPopup && (
+          <div className="popup-overlay">
+            <div className="popup">
+              <h3>Modifier la tâche ✨</h3>
+              <input
+                type="text"
+                value={editTitle}
+                onChange={(e) => setEditTitle(e.target.value)}
+                onKeyPress={(e) => e.key === 'Enter' && saveEdit()}
+              />
+              <div className="popup-actions">
+                <button onClick={saveEdit}>
+                  <MdSave /> Sauvegarder
+                </button>
+                <button onClick={() => setShowEditPopup(false)}>
+                  <MdCancel /> Annuler
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Popup suppression tâche */}
+        {showDeletePopup && (
+          <div className="popup-overlay">
+            <div className="popup">
+              <h3>Supprimer cette tâche ?</h3>
+              <p>« {todoToDelete?.title} » sera supprimée définitivement.</p>
+              <div className="popup-actions">
+                <button
+                  onClick={async () => {
+                    try {
+                      await API.delete(`/todos/${todoToDelete._id}`);
+                      setShowDeletePopup(false);
+                      setTodoToDelete(null);
+                      fetchTodos();
+                    } catch (err) {
+                      console.error("Erreur suppression :", err);
+                    }
+                  }}
+                >
+                  <MdDelete /> Oui, supprimer
+                </button>
+                <button
+                  onClick={() => {
                     setShowDeletePopup(false);
                     setTodoToDelete(null);
-                    fetchTodos();
-                  } catch (err) {
-                    console.error("Erreur suppression :", err);
-                  }
-                }}
-              >
-                <MdDelete /> Oui, supprimer
-              </button>
-              <button
-                onClick={() => {
-                  setShowDeletePopup(false);
-                  setTodoToDelete(null);
-                }}
-              >
-                <MdCancel /> Annuler
-              </button>
+                  }}
+                >
+                  <MdCancel /> Annuler
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      )}
-    </div>
+        )}
+      </div>
+    </>
   );
 }
