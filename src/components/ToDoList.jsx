@@ -7,8 +7,7 @@ import {
   MdDelete,
   MdCheckCircle,
   MdAddCircle,
-  MdCancel,
-  MdSave
+  MdCancel
 } from "react-icons/md";
 
 export default function ToDoList() {
@@ -135,10 +134,10 @@ export default function ToDoList() {
               />
               <div className="popup-actions">
                 <button onClick={addTodo}>
-                  <MdSave /> Enregistrer
+                  Enregistrer
                 </button>
                 <button onClick={() => setShowAddPopup(false)}>
-                  <MdCancel /> Annuler
+                   Annuler
                 </button>
               </div>
             </div>
@@ -158,10 +157,10 @@ export default function ToDoList() {
               />
               <div className="popup-actions">
                 <button onClick={saveEdit}>
-                  <MdSave /> Sauvegarder
+                   Sauvegarder
                 </button>
                 <button onClick={() => setShowEditPopup(false)}>
-                  <MdCancel /> Annuler
+                   Annuler
                 </button>
               </div>
             </div>
