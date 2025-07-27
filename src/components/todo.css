@@ -6,6 +6,18 @@ body {
   font-family: 'Fredoka', sans-serif;
   background-color: #fff5fb;
 }
+.todo-container {
+  min-height: 100vh;
+  padding-top: 100px; /* laisse l’espace pour la navbar fixe */
+  padding-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  margin-left: -190px;
+}
+
 
 h2 {
   text-align: center;
@@ -221,6 +233,11 @@ h2 {
   .todo-actions {
     align-self: flex-end;
   }
+
+  .todo-container {
+    margin-top: 100px;
+    padding: 0 10px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -259,7 +276,7 @@ h2 {
     padding: 12px;
     font-size: 1rem;
     margin-bottom: 20px;
-  border-radius: 20px;
+    border-radius: 20px;
   }
 
   .popup-actions {

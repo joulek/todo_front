@@ -1,31 +1,21 @@
-// Sidebar.jsx
+// Navbar.jsx
 import { NavLink } from 'react-router-dom';
 import './navbar.css';
-import { FaHome, FaListAlt, FaCog, FaSignOutAlt } from 'react-icons/fa';
+import { FaListAlt, FaSignOutAlt } from 'react-icons/fa';
 import logo from "../assets/logo_to_do_sans_bg.png";
 
-
-export default function Sidebar() {
+export default function Navbar() {
   return (
-    <div className="sidebar">
-      <div className="sidebar-header">
-        <div className="header-content">
-          <img src={logo} alt="Logo" className="logoNavbar" />
-          <span>To-Do App</span>
-        </div>
+    <div className="navbar">
+      <div className="navbar-left">
+        <img src={logo} alt="Logo" className="logoNavbar" />
+        <span className="navbar-title">To-Do App</span>
       </div>
-      <nav className="sidebar-nav">
-
-
-        <NavLink to="/todos" className="sidebar-link">
-          <FaListAlt /> <span>My Tâches</span>
-        </NavLink>
-
-
-        <NavLink to="/logout" className="sidebar-link">
+      <div className="navbar-right">
+        <NavLink to="/logout" className="navbar-link">
           <FaSignOutAlt /> <span>Déconnexion</span>
         </NavLink>
-      </nav>
+      </div>
     </div>
   );
 }
