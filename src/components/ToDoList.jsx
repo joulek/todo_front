@@ -12,13 +12,14 @@ import {
 } from "react-icons/md";
 
 export default function ToDoList() {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [todos, setTodos] = useState([]);
   const [title, setTitle] = useState("");
   const [showAddPopup, setShowAddPopup] = useState(false);
+
   const [editId, setEditId] = useState(null);
   const [editTitle, setEditTitle] = useState("");
   const [showEditPopup, setShowEditPopup] = useState(false);
+
   const [showDeletePopup, setShowDeletePopup] = useState(false);
   const [todoToDelete, setTodoToDelete] = useState(null);
 
@@ -78,14 +79,8 @@ export default function ToDoList() {
 
   return (
     <>
-      <Sidebar
-        isOpen={isSidebarOpen}
-        onToggle={() => setIsSidebarOpen(!isSidebarOpen)}
-      />
-      <div className="todo-container" style={{
-        marginLeft: isSidebarOpen && window.innerWidth > 992 ? '220px' : '0',
-        width: isSidebarOpen && window.innerWidth > 992 ? 'calc(100% - 220px)' : '100%'
-      }}>
+      <Sidebar />
+      <div className="todo-container">
         <h2>Ma To-Do List</h2>
         <button className="add-button" onClick={() => setShowAddPopup(true)}>
           <MdAddCircle size={20} /> Ajouter une tâche
