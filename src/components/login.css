@@ -216,3 +216,12 @@ body {
     font-size: 13px;
   }
 }
+.error-message {
+  color: red;
+  background-color: #ffe5e5;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  text-align: center;
+  font-weight: bold;
+}

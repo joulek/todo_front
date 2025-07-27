@@ -8,10 +8,12 @@ import { Link } from 'react-router-dom';
 export default function Login() {
   const [form, setForm] = useState({ email: '', password: '' });
   const [rememberMe, setRememberMe] = useState(false);
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setError(''); // Réinitialiser l'erreur avant une nouvelle tentative
     try {
       const res = await API.post('/auth/login', form);
       localStorage.setItem('token', res.data.token);
@@ -20,7 +22,7 @@ export default function Login() {
       }
       navigate('/todos');
     } catch (error) {
-      alert('Login failed. Please check your credentials.');
+      setError("Échec de la connexion. Veuillez vérifier votre email et mot de passe.");
     }
   };
 
@@ -29,6 +31,8 @@ export default function Login() {
       <form className="login-form" onSubmit={handleLogin}>
         <img src={logo} alt="Logo" className="logo" />
         <h1 className="login-title">Bienvenue de nouveau !</h1>
+
+        {error && <div className="error-message">{error}</div>}
 
         <div className="input-group">
           <input
@@ -52,9 +56,8 @@ export default function Login() {
           <label>Mot de passe</label>
         </div>
 
-  
-
         <button type="submit" className="login-button">Connexion</button>
+
         <div className="signup-link">
           Vous n'avez pas encore de compte ? <Link to="/register">Créer un compte !</Link>
         </div>
